@@ -3,7 +3,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaWind } from "react-icons/fa6";
 import { IoWaterOutline } from "react-icons/io5";
 import styled from "styled-components";
-
+import  sol  from "../../assets/img/sol.webp";
 const Titulo = styled.h2`
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@ const Resultados = () => {
         {cidadeAtual}
       </Titulo>
       <TemperaturaAtual>
-        <img src="../src/assets/img/sol.webp"/>
+        <img src={sol}/>
         <p>Céu limpo</p>
         <span className="temperatura-atual">30°</span>
         <div className="info-adicionais">
