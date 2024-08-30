@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Cabecalho from "./components/Cabecalho";
 import Container from "./components/common/Container";
 import Resultados from "./components/Resultados";
+import { BuscaApiProvider } from "./Context/buscaApiContext";
 
 const App = styled.div`
   background: rgb(201,148,104);
@@ -11,12 +12,14 @@ const App = styled.div`
 
 const Home = ()=> {
   return(
-    <App>
-      <Container>
-        <Cabecalho />
-        <Resultados />
-      </Container>
-    </App>
+    <BuscaApiProvider>
+      <App>
+        <Container>
+          <Cabecalho />
+          <Resultados />
+        </Container>
+      </App>
+    </BuscaApiProvider>
   );
 };
 
