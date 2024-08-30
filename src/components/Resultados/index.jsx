@@ -44,7 +44,7 @@ const TemperaturaAtual = styled.div`
 `;
 
 const ProximosHorarios = styled.div`
-  padding: 2rem 0;
+  padding: 3rem 0;
   text-align: start;
   display: flex;
   flex-direction: column;
@@ -52,12 +52,13 @@ const ProximosHorarios = styled.div`
 `;
 
 const Card = styled.div`
-  border: 1px solid #00000070;
-  padding: 10px;
+  padding: 1rem;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 `;
 
 const Resultados = () => {
