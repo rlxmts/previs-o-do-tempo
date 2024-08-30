@@ -22,7 +22,6 @@ const EstiloGlobal = createGlobalStyle`
         box-sizing: border-box;
         font-family: "PoppinsLight";
     }
-
     .esconder{
         font-size: 1px;
         color: transparent;
