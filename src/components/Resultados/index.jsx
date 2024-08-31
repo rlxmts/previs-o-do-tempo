@@ -85,6 +85,9 @@ const Resultados = () => {
     return <p>Parece que houve um erro ao carregar as informações.</p>;
   }
 
+  const temperatura = dados[0].main.temp;
+  const temperaturaTratada = Number(String(temperatura).slice(0, 2));
+
   return(
     <SecaoResultado>
       <Titulo>
@@ -94,7 +97,7 @@ const Resultados = () => {
       <TemperaturaAtual>
         <img src={sol}/>
         <p>{dados[0].weather[0].description}</p>
-        <span className="temperatura-atual">{dados[0].main.temp}</span>
+        <span className="temperatura-atual">{temperaturaTratada}°</span>
         <div className="info-adicionais">
           <span className="velocidade-vento">
             <FaWind />
@@ -109,11 +112,15 @@ const Resultados = () => {
       <ProximosHorarios>
         <h3>Veja a temperatura durante o dia:</h3>
         {dados.map( item => {
+
+          const temp = item.main.temp;
+          const temperaturaTratada = Number(String(temp).slice(0, 2));
+
           return(
             <Card key={item.dt}>
               <span>{item.dt_txt}</span>
               <p>{item.weather[0].description}</p>
-              <span>{item.main.temp}</span>
+              <span>{temperaturaTratada}°</span>
             </Card>
           );
         })}  
