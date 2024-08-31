@@ -27,7 +27,7 @@ const EstiloGlobal = createGlobalStyle`
         color: transparent;
         position: absolute;
         left: -9999;
-    }
+    }    
 `;
 
 export default EstiloGlobal;

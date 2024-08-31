@@ -1,10 +1,30 @@
 import { FaLocationDot } from "react-icons/fa6";
 import { FaWind } from "react-icons/fa6";
 import { IoWaterOutline } from "react-icons/io5";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import  sol  from "../../assets/img/sol.webp";
 import { useContext, useEffect } from "react";
 import { BuscaApiContext } from "../../Context/buscaApiContext";
+
+const girar = keyframes`
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+`;
+
+
+const Carregando = styled.div`
+        display: block;
+        border: 3px solid #000000;
+        border-bottom: 3px solid transparent;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        animation: ${girar} 2s linear infinite;
+        position: absolute;
+        top:50%;
+        left: 50%;
+        transform: translate(-50% -50%);
+  `;
 
 const Titulo = styled.h2`
   display: flex;
@@ -69,15 +89,15 @@ const Card = styled.div`
 
 const Resultados = () => {
 
-  const { cidade, buscarApi, dados, erro } = useContext(BuscaApiContext);
+  const { cidade, buscarApi, dados, erro, carregando } = useContext(BuscaApiContext);
 
   useEffect(()=> {    
     buscarApi("rio de janeiro");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);  
 
-  if(dados.length < 1){
-    return <p>Carregando...</p>;
+  if(carregando || dados.length < 1){
+    return <Carregando></Carregando>;
   }
 
   if(erro){
