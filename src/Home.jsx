@@ -12,15 +12,14 @@ const App = styled.div`
 
 const Home = ()=> {
   return(
-    <BuscaApiProvider>
-      <App>
+    <App>
+      <BuscaApiProvider>
         <Container>
           <Cabecalho />
           <Resultados />
         </Container>
-      </App>
-    </BuscaApiProvider>
+      </BuscaApiProvider>
+    </App>
   );
 };
-
 export default Home;

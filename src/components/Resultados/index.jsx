@@ -1,9 +1,11 @@
-import { useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaWind } from "react-icons/fa6";
 import { IoWaterOutline } from "react-icons/io5";
 import styled from "styled-components";
 import  sol  from "../../assets/img/sol.webp";
+import { useContext, useEffect } from "react";
+import { BuscaApiContext } from "../../Context/buscaApiContext";
+
 const Titulo = styled.h2`
   display: flex;
   align-items: center;
@@ -59,56 +61,58 @@ const Card = styled.div`
   justify-content: space-between;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
+
+  .horario, .temperatura{
+    font-family: "PoppinsMedium";
+  }
 `;
 
 const Resultados = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [cidadeAtual, setCidadeAtual] = useState("Rio de Janeiro");
+
+  const { cidade, buscarApi, dados } = useContext(BuscaApiContext);
+
+  useEffect(()=> {    
+    buscarApi("rio de janeiro");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);  
+
+  if(dados.length < 1){
+    return <p>Carregando...</p>;
+  }
 
   return(
     <SecaoResultado>
       <Titulo>
         <FaLocationDot fill="#00205B" />
-        {cidadeAtual}
+        {cidade}
       </Titulo>
       <TemperaturaAtual>
         <img src={sol}/>
-        <p>Céu limpo</p>
-        <span className="temperatura-atual">30°</span>
+        <p>{dados[0].weather[0].description}</p>
+        <span className="temperatura-atual">{dados[0].main.temp}</span>
         <div className="info-adicionais">
           <span className="velocidade-vento">
             <FaWind />
-            <span>6 km/h</span>
+            <span>{dados[0].wind.speed} km/h</span>
           </span>
           <span className="humidade">
             <IoWaterOutline />
-            <span>50%</span>
+            <span>{dados[0].main.humidity}%</span>
           </span>
         </div>
-      </TemperaturaAtual>
+      </TemperaturaAtual>      
       <ProximosHorarios>
         <h3>Veja a temperatura durante o dia:</h3>
-        <Card>
-          <span>15:00</span>
-          <p>Algumas Nuvens</p>
-          <span>25°</span>
-        </Card>
-        <Card>
-          <span>15:00</span>
-          <p>Algumas Nuvens</p>
-          <span>25°</span>
-        </Card>
-        <Card>
-          <span>15:00</span>
-          <p>Algumas Nuvens</p>
-          <span>25°</span>
-        </Card>
-        <Card>
-          <span>15:00</span>
-          <p>Algumas Nuvens</p>
-          <span>25°</span>
-        </Card>
-      </ProximosHorarios>
+        {dados.map( item => {
+          return(
+            <Card key={item.dt}>
+              <span>{item.dt_txt}</span>
+              <p>{item.weather[0].description}</p>
+              <span>{item.main.temp}</span>
+            </Card>
+          );
+        })}  
+      </ProximosHorarios>       
     </SecaoResultado>
   );
 };

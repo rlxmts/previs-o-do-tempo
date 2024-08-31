@@ -1,4 +1,6 @@
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { BuscaApiContext } from "../../../Context/buscaApiContext";
 
 const Form = styled.form`
   width: 100%;
@@ -7,10 +9,22 @@ const Form = styled.form`
 
 const CampoPesquisa = styled.input`
   width: 100%;
-  padding: .5rem 1rem;
+  padding: .5rem 1rem .5rem 2rem;
   outline: none;
   border: 1px solid #00000070;
   border-radius: 10px 0 0 10px ;
+  position: relative;
+
+  &::before{
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    position: absolute;
+    left: 0;
+    top: 50%;
+  }
 `;
 
 
@@ -31,11 +45,36 @@ const Botao = styled.button`
 `;
 
 const FormPesquisa = ()=> {
+  const {buscarApi} = useContext(BuscaApiContext);
+  const [cidadeDigitada, setCidadeDigitada] = useState("");
+
+  const pesquisarCidade = (e)=> {
+    e.preventDefault();
+    buscarApi(cidadeDigitada);
+    setCidadeDigitada("");
+  };
+
   return(
     <Form>
-      <label className="esconder" htmlFor="buscar">Digite a cidade:</label>
-      <CampoPesquisa placeholder="Rio de Janeiro" id="buscar" required/>
-      <Botao className="bt-buscar">Buscar</Botao>
+      <label 
+        className="esconder" 
+        htmlFor="buscar"
+      >
+        Digite a cidade:
+      </label>
+      <CampoPesquisa 
+        onChange={(e)=> setCidadeDigitada(e.target.value)}
+        value={cidadeDigitada}
+        placeholder="Buscar Cidade" 
+        id="buscar" 
+        required
+      />
+      <Botao 
+        onClick={(e)=> pesquisarCidade(e)}
+        className="bt-buscar"
+      >
+        Buscar
+      </Botao>
     </Form>
   );
 };
