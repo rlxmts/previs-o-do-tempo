@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FormPesquisa from "../common/FormPesquisa";
+import FormPesquisa from "../../common/FormPesquisa";
 
 const Header = styled.header`
   display: flex;

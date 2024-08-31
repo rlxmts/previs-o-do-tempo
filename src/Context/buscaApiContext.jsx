@@ -20,8 +20,8 @@ export const BuscaApiProvider = ({children})=> {
       setCidade(res.data.city.name);
       setErro(null);
     }catch(erro){
-      setErro(erro);
       setCarregando(false);
+      setErro(erro.response.data.message);
     }finally{
       setCarregando(false);
     }

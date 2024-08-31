@@ -2,9 +2,9 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaWind } from "react-icons/fa6";
 import { IoWaterOutline } from "react-icons/io5";
 import styled, { keyframes } from "styled-components";
-import  sol  from "../../assets/img/sol.webp";
+import  sol  from "../../../assets/img/sol.webp";
 import { useContext, useEffect } from "react";
-import { BuscaApiContext } from "../../Context/buscaApiContext";
+import { BuscaApiContext } from "../../../Context/buscaApiContext";
 
 const girar = keyframes`
     0% { transform: rotate(0deg); }
@@ -25,6 +25,12 @@ const Carregando = styled.div`
         left: 50%;
         transform: translate(-50%, -50%);
   `;
+
+const MsgErro = styled.p`
+  text-align: center;
+  color: red;
+  font-family: "PoppinsMedium";
+`;
 
 const Titulo = styled.h2`
   display: flex;
@@ -96,15 +102,19 @@ const Resultados = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);  
 
+  
+  if(erro === "city not found"){
+    console.log("Erro obtido: ",erro);
+    return <MsgErro>Cidade não encontrada.</MsgErro>;
+  }
+  
+  if(erro){
+    return <p>Ops, parece que houve algum erro na busca.</p>;
+  }
+  
   if(carregando || dados.length < 1){
     return <Carregando></Carregando>;
   }
-
-  if(erro){
-    console.log("Erro obtido: ",erro);
-    return <p>Parece que houve um erro ao carregar as informações.</p>;
-  }
-
   const temperatura = dados[0].main.temp;
   const temperaturaTratada = Number(String(temperatura).slice(0, 2));
 
