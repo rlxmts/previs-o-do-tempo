@@ -118,7 +118,7 @@ const Resultados = () => {
 
           return(
             <Card key={item.dt}>
-              <span>{item.dt_txt}</span>
+              <span>{item.dt_txt.slice(11, 16)}</span>
               <p>{item.weather[0].description}</p>
               <span>{temperaturaTratada}°</span>
             </Card>
