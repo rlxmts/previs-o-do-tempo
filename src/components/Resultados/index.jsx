@@ -69,7 +69,7 @@ const Card = styled.div`
 
 const Resultados = () => {
 
-  const { cidade, buscarApi, dados } = useContext(BuscaApiContext);
+  const { cidade, buscarApi, dados, erro } = useContext(BuscaApiContext);
 
   useEffect(()=> {    
     buscarApi("rio de janeiro");
@@ -78,6 +78,11 @@ const Resultados = () => {
 
   if(dados.length < 1){
     return <p>Carregando...</p>;
+  }
+
+  if(erro){
+    console.log("Erro obtido: ",erro);
+    return <p>Parece que houve um erro ao carregar as informações.</p>;
   }
 
   return(
