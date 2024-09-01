@@ -11,11 +11,13 @@ export const BuscaApiProvider = ({children})=> {
   const [cidade, setCidade] = useState("");
   const [dados, setDados] = useState([]);
   const [carregando, setCarregando] = useState(false);
+  const [ceu, setCeu] = useState("");
 
   const buscarApi = async (cidadeDigitada)=>{    
     setCarregando(true);
     try{
       const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cidadeDigitada}&lang=pt_br&cnt=3&appid=${key}`);
+      setCeu(res.data.list[0].weather[0].main);
       setDados(res.data.list);
       setCidade(res.data.city.name);
       setErro(null);
@@ -28,7 +30,7 @@ export const BuscaApiProvider = ({children})=> {
   };
 
   return(
-    <BuscaApiContext.Provider value={{erro, cidade, dados, carregando, buscarApi}}>
+    <BuscaApiContext.Provider value={{erro, cidade, dados, carregando, buscarApi, ceu}}>
       {children}
     </BuscaApiContext.Provider>
   );
