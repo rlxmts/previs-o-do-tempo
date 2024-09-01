@@ -2,9 +2,11 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaWind } from "react-icons/fa6";
 import { IoWaterOutline } from "react-icons/io5";
 import styled from "styled-components";
-import nuvem from "../../../assets/img/nublado.webp";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BuscaApiContext } from "../../../Context/buscaApiContext";
+import nuvem from "../../../assets/img/Clouds.webp";
+import sol from "../../../assets/img/Clear.webp";
+import chuva from "../../../assets/img/Rain.webp";
 
 const Titulo = styled.h2`
   display: flex;
@@ -14,7 +16,7 @@ const Titulo = styled.h2`
 `;
 
 const TempResultado = styled.div`
-display: flex;
+  display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
@@ -49,8 +51,22 @@ display: flex;
 `;
 
 const TemperaturaAtual = () => {
+  const { cidade, dados, ceu } = useContext(BuscaApiContext);
+  const [imagem, setImagem] = useState("");
 
-  const { cidade, dados } = useContext(BuscaApiContext);
+  useEffect(() => {
+    switch (ceu) {
+    case "Clear":
+      return setImagem(sol);
+    case "Clouds":
+      return setImagem(nuvem);
+    case "Rain":
+      return setImagem(chuva);
+    default:
+      return setImagem(chuva); //
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const temperatura = dados[0].main.temp;
   const temperaturaTratada = Number(String(temperatura).slice(0, 2));
@@ -64,7 +80,7 @@ const TemperaturaAtual = () => {
         <FaLocationDot fill="#00205B" />
         {cidade}
       </Titulo>
-      <img className="img-tempo" src={nuvem}/>
+      <img className="img-tempo" src={imagem} />
       <p className="Descricao">{ceuDescricao}</p>
       <span className="temperatura-atual">{temperaturaTratada}°</span>
       <div className="info-adicionais">
