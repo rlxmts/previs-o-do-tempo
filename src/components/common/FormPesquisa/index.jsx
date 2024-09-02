@@ -57,7 +57,6 @@ const FormPesquisa = ()=> {
     const palavraFormatada = formatarPalavra(cidadeDigitada);
     buscarApi(palavraFormatada);
     setCidadeDigitada("");
-    console.log(palavraFormatada);
   };
 
   return(
