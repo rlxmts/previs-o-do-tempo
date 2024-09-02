@@ -48,14 +48,20 @@ const FormPesquisa = ()=> {
   const {buscarApi} = useContext(BuscaApiContext);
   const [cidadeDigitada, setCidadeDigitada] = useState("");
 
+  const formatarPalavra = (palavra)=> {
+    return palavra.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+
   const pesquisarCidade = (e)=> {
     e.preventDefault();
-    buscarApi(cidadeDigitada);
+    const palavraFormatada = formatarPalavra(cidadeDigitada);
+    buscarApi(palavraFormatada);
     setCidadeDigitada("");
+    console.log(palavraFormatada);
   };
 
   return(
-    <Form>
+    <Form onSubmit={(e) => pesquisarCidade(e)}>
       <label 
         className="esconder" 
         htmlFor="buscar"
@@ -69,10 +75,7 @@ const FormPesquisa = ()=> {
         id="buscar" 
         required
       />
-      <Botao 
-        onClick={(e)=> pesquisarCidade(e)}
-        className="bt-buscar"
-      >
+      <Botao className="bt-buscar">
         Buscar
       </Botao>
     </Form>
