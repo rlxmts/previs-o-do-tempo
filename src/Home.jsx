@@ -25,7 +25,7 @@ const Home = ()=> {
 const App = ()=> {
 
   const { ceu } = useContext(BuscaApiContext);
-  const [ corDeFundo, setCorDeFundo ] = useState("");
+  const [ corDeFundo, setCorDeFundo ] = useState("linear-gradient(0deg, #b2d7e6 71%, #7de2f8 100%)");
 
   useEffect(()=> {
     switch (ceu) {
