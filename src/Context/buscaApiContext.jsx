@@ -16,11 +16,12 @@ export const BuscaApiProvider = ({children})=> {
   const buscarApi = async (cidadeDigitada)=>{    
     setCarregando(true);
     try{
-      const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cidadeDigitada}&lang=pt_br&cnt=3&appid=${key}`);
+      const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cidadeDigitada}&lang=pt_br&cnt=3&appid=${key}&units=metric`);
       setCeu(res.data.list[0].weather[0].main);
       setDados(res.data.list);
       setCidade(res.data.city.name);
       setErro(null);
+      console.log(res.data);
     }catch(erro){
       setCarregando(false);
       setErro(erro.response.data.message);
